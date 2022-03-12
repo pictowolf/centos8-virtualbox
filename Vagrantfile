@@ -3,16 +3,20 @@ Vagrant.configure("2") do |config|
     config.vm.hostname = "centos-8-stream"
 
     config.vm.provider "virtualbox" do |vb|
-        vb.memory = "4096"
+        vb.memory = "6400"
         vb.cpus = "4"
     end
 
     config.vm.network "public_network",
     use_dhcp_assigned_default_route: true
 
-    print "Please insert your username\n"
-    print "Username: "
-    username = STDIN.gets.chomp
+    class Username
+        def to_s
+            print "Virtual machine user you want created.\n"
+            print "Username: " 
+            STDIN.gets.chomp
+        end
+    end
 
-    config.vm.provision "shell", path: "kickstart.sh", :args => [username]
+    config.vm.provision "shell", path: "kickstart.sh", env: { "username" => Username.new }
 end

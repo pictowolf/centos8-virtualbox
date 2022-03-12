@@ -1,5 +1,5 @@
 #!/bin/bash
-user=$1
+user=$username
 password=$(openssl rand -base64 20)
 
 sudo dnf update -y
