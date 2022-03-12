@@ -10,5 +10,9 @@ Vagrant.configure("2") do |config|
     config.vm.network "public_network",
     use_dhcp_assigned_default_route: true
 
-    config.vm.provision "shell", path: "kickstart.sh"
+    print "Please insert your username\n"
+    print "Username: "
+    username = STDIN.gets.chomp
+
+    config.vm.provision "shell", path: "kickstart.sh", :args => [username]
 end
